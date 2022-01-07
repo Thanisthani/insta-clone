@@ -1,11 +1,23 @@
 import React from 'react'
-import { View, Text, SafeAreaView, StyleSheet,StatusBar } from 'react-native'
+import { View, Text, SafeAreaView, StyleSheet,StatusBar, ScrollView } from 'react-native'
 import Header from '../Components/Home/Header';
+import Stories from '../Components/Home/Stories';
+import Post from '../Components/Home/Post';
+import { POST } from '../data/post';
+import  BottomTab,{ bottomTabIcons } from '../Components/Home/BottomTab';
 
 const Homescreen = () => {
     return (
         <View style={Styles.container}>
-            <Header/>
+            <Header />
+            <Stories />
+            <ScrollView>
+                {POST.map((post, index) => (
+                    <Post key={ index} post={post}/> 
+                ))}
+                
+            </ScrollView>
+            <BottomTab icons={bottomTabIcons} />
         </View>
     )
 }
