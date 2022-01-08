@@ -2,14 +2,14 @@ import React from 'react'
 import { View, StyleSheet, StatusBar,Image } from 'react-native'
 import LoginForm from '../Components/Login/LoginForm'
 
-const LoginScreen = () => {
+const LoginScreen = ({navigation}) => {
     return (
         <View style={Styles.container}>
             <View style={Styles.wrapper}>
                 <Image style={Styles.img} source={{ uri: "https://i.pinimg.com/564x/3b/21/c7/3b21c7efd2ba9c119fb8d361acacc31d.jpg" }} />
                 
             </View>
-            <LoginForm />
+            <LoginForm navigation={navigation} />
         </View>
     )
 }
