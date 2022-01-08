@@ -13,12 +13,13 @@ const uploadPostSchema = Yup.object().shape(
     }
 );
 
-const FormikFormSubmit = () => {
+const FormikFormSubmit = ({navigation}) => {
     const [thumbnail, setThumbnail] = useState(placeHolder);
     return (
         <Formik
             initialValues={{ caption: "", imageUrl: "" }}
-            onSubmit={values => console.log(values)}
+            onSubmit={values =>{ console.log(values),
+            navigation.goBack()}}
             validationSchema={uploadPostSchema}
             validateOnMount={true}
         >

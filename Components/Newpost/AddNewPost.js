@@ -2,18 +2,18 @@ import React from 'react'
 import { View, Text, StyleSheet,Image, TouchableOpacity } from 'react-native'
 import FormikFormSubmit from './FormikFormSubmit'
 
-const AddNewPost = () => {
+const AddNewPost = ({navigation}) => {
     return (
         <View style={Styles.container}>
-            <Header />
-            <FormikFormSubmit />
+            <Header navigation={navigation}/>
+            <FormikFormSubmit navigation={navigation}/>
         </View>
     )
 }
 
-const Header = () => (
+const Header = ({navigation}) => (
     <View style={Styles.headerWrapper}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
         <Image style={ Styles.arrow}source={require("../../assets/leftarrow.png")} />
         </TouchableOpacity>
         <Text style={Styles.header}>NEW POST</Text>

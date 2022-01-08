@@ -2,10 +2,10 @@ import React from 'react'
 import { View, StyleSheet,StatusBar } from 'react-native'
 import AddNewPost from '../Components/Newpost/AddNewPost'
 
-const AddnewpostScreen = () => {
+const AddnewpostScreen = ({navigation}) => {
     return (
         <View style={Styles.container}>
-            <AddNewPost />
+            <AddNewPost navigation={navigation} />
         </View>
     )
 }

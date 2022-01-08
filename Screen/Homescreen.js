@@ -6,10 +6,10 @@ import Post from '../Components/Home/Post';
 import { POST } from '../data/post';
 import  BottomTab,{ bottomTabIcons } from '../Components/Home/BottomTab';
 
-const Homescreen = () => {
+const Homescreen = ({navigation}) => {
     return (
         <View style={Styles.container}>
-            <Header />
+            <Header navigation={navigation} />
             <Stories />
             <ScrollView>
                 {POST.map((post, index) => (
