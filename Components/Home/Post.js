@@ -1,12 +1,12 @@
 import React from 'react'
 import { View, Text, StyleSheet, Image,TouchableOpacity } from 'react-native'
-import { Divider } from 'react-native-elements/dist/divider/Divider'
+// import { Divider } from 'react-native-elements/dist/divider/Divider'
 
 
 const Post = ({post}) => {
     return (
         <View style={{marginTop:10}}>
-            <Divider width={1} orientation='vertical' />
+            {/* <Divider width={1} orientation='vertical' /> */}
             <Postheader post={post} />
             <Postimage post={post} />
             <Footericon />
