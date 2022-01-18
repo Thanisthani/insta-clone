@@ -9,19 +9,31 @@ import SignUpScreen from './SignUpScreen';
 const Stack = createNativeStackNavigator()
 
 
-const SignedInStack = () => (
+ export const SignedInStack = () => (
+    <NavigationContainer>
+        <Stack.Navigator
+            initialRouteName='HomeScreen'
+            screenOptions={{
+                headerShown: false
+              }}>
+            <Stack.Screen name="HomeScreen" component={Homescreen} />
+            <Stack.Screen name="AddnewpostScreen" component={AddnewpostScreen} />
+        </Stack.Navigator>
+    </NavigationContainer>
+)
+
+export const SignedOutStack = () => (
     <NavigationContainer>
         <Stack.Navigator
             initialRouteName='LoginScreen'
             screenOptions={{
                 headerShown: false
               }}>
-            <Stack.Screen name="HomeScreen" component={Homescreen} />
-            <Stack.Screen name="AddnewpostScreen" component={AddnewpostScreen} />
             <Stack.Screen name="LoginScreen" component={LoginScreen} />
             <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
         </Stack.Navigator>
     </NavigationContainer>
 )
 
-export default SignedInStack
+
+ 

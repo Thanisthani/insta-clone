@@ -1,14 +1,17 @@
 
 import { StyleSheet, Text, View } from 'react-native';
+import AuthNavigation from './AuthNavigation';
 import AddnewpostScreen from './Screen/AddnewpostScreen';
 import Homescreen from './Screen/Homescreen';
-import SignedInStack from './Screen/Navigation';
+import  { SignedInStack, SignedOutStack } from './Screen/Navigation';
 
 export default function App() {
   return (
-    
-      <SignedInStack />
+    // <SignedOutStack />
+    <AuthNavigation />
+      // <SignedInStack />
     // <Homescreen />
+  
   );
 }
 
