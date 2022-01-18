@@ -3,6 +3,10 @@ import { View, TextInput,Text, StyleSheet, Pressable, TouchableOpacity } from 'r
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import * as EmailValidator from 'email-validator';
+import { auth,db } from '../../firbase'
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { collection, getDocs , doc, setDoc } from 'firebase/firestore/lite';
+
 
 const SignupSchema = Yup.object().shape(
     {
@@ -12,13 +16,32 @@ const SignupSchema = Yup.object().shape(
     }
 )
 
-const SignupForm = ({navigation}) => {
+
+
+
+const SignupForm = ({ navigation }) => {
+    
+    const RegisterUser = (email, password,username) => {
+        createUserWithEmailAndPassword(auth, email, password)
+            .then((re) => {
+                console.log("Sucessfully signed up");
+                 setDoc(doc(db, "customers", re.user.uid), {
+                    uid: re.user.uid,
+                    username: username,
+                    email:re.user.email
+                  });
+                // navigation.push("HomeScreen");
+            })
+            .catch((re) => {
+                console.log(re);
+            })
+    }
 
     return (
         <View style={Styles.wrapper}>
             <Formik
                 initialValues={{ email: "", username:"",password: "" }}
-                onSubmit={values => { console.log(values) }}
+                onSubmit={values => { RegisterUser(values.email,values.password,values.username) }}
                 validationSchema={SignupSchema}
                 validateOnMount={true}>
                 {({
