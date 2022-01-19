@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, Image , Button} from 'react-native';
+import React, { useState,useEffect } from 'react';
+import { View, Text, TextInput, Image , Button, Alert} from 'react-native';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
+import { auth, db } from '../../firbase'
+import { collection, getDoc,setDoc, doc,serverTimestamp } from "firebase/firestore";
 // import { Divider } from 'react-native-elements';
 
 const placeHolder = "https://loadslammer.com/wp-content/uploads/2021/01/photo-placeholder-icon-17.jpg";
@@ -13,13 +15,74 @@ const uploadPostSchema = Yup.object().shape(
     }
 );
 
-const FormikFormSubmit = ({navigation}) => {
+const FormikFormSubmit = ({ navigation }) => {
+
+    const[currentUsername,setCurrentUsername] = useState(null)
+    const user_id = auth.currentUser.uid;
+    const getUser = async () => {
+        
+
+        const dref = doc(db,'customers',user_id)
+        const docSnapshot = await getDoc(dref)
+        
+        if (docSnapshot.exists())
+        {
+            
+                setCurrentUsername(
+                    {
+                        username: docSnapshot.data().username,
+                        profile_pic:  docSnapshot.data().profile_pic
+                    }
+            ) 
+        
+        }
+        else {
+            console.log("No such document")
+        }
+        
+    } 
+    
+    
+    useEffect(() =>
+    {
+        getUser();
+    }
+)
+    
+    const uploadPic = async (caption, imgURl) =>
+    {
+        const userRef = collection(db, "customers",user_id,"post")
+        
+        
+        await setDoc(doc(userRef),
+            {
+            imgurl: imgURl,
+            username: currentUsername.username,
+           
+            userId: auth.currentUser.uid,
+            caption: caption,
+            createAt: serverTimestamp(),
+            likes: 0,
+            likes_by_users: [],
+            comments: [],
+            
+            }).then(() => 
+            {
+                
+                console.log("Sucesssfully post posted")
+                navigation.goBack();
+                }
+            
+        )
+
+    }    
+
+
     const [thumbnail, setThumbnail] = useState(placeHolder);
     return (
         <Formik
             initialValues={{ caption: "", imageUrl: "" }}
-            onSubmit={values =>{ console.log(values),
-            navigation.goBack()}}
+            onSubmit={values =>{ uploadPic(values.caption,values.imageUrl)}}
             validationSchema={uploadPostSchema}
             validateOnMount={true}
         >

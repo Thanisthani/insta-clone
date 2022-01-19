@@ -5,7 +5,7 @@ import { Formik } from 'formik';
 import * as EmailValidator from 'email-validator';
 import { auth,db } from '../../firbase'
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { collection, getDocs , doc, setDoc } from 'firebase/firestore/lite';
+import { collection, getDocs , doc, setDoc } from 'firebase/firestore';
 
 
 const SignupSchema = Yup.object().shape(
